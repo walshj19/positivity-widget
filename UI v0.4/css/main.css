@@ -11,11 +11,13 @@ body, html{
 
 .feature-widget{
     width: 920px;
-    height: 300px;
+    min-height: 300px;
     display: block;
 }
 
-img .feature-widget{
+.feature-widget img{
+    max-width: 304px;
+    max-height: 160px;
     
 
 }
