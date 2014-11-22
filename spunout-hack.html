@@ -1,6 +1,7 @@
 <html>
   <head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript">
 
     <!-- List of RSS feeds to pull
@@ -10,18 +11,20 @@
     google.load("feeds", "1");
 
     function initialize() {
-      var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
-      feed.load(function(result) {
-        if (!result.error) {
-          var container = document.getElementById("feed");
-          for (var i = 0; i < result.feed.entries.length; i++) {
-            var entry = result.feed.entries[i];
-            var div = document.createElement("div");
-            div.appendChild(document.createTextNode(entry.title));
-            container.appendChild(div);
-          }
-        }
-      });
+      
+      // EXAMPLE CODE
+      // var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
+      // feed.load(function(result) {
+      //   if (!result.error) {
+      //     var container = document.getElementById("feed");
+      //     for (var i = 0; i < result.feed.entries.length; i++) {
+      //       var entry = result.feed.entries[i];
+      //       var div = document.createElement("div");
+      //       div.appendChild(document.createTextNode(entry.title));
+      //       container.appendChild(div);
+      //     }
+      //   }
+      // });
       
       var redditFeed = new google.feeds.Feed("http://www.reddit.com/r/GetMotivated.rss");
       redditFeed.load(function(result) {
@@ -30,7 +33,15 @@
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
             var div = document.createElement("div");
-            div.appendChild(document.createTextNode(entry.title));
+            if(entry.title.indexOf("[Image]") > -1){
+              image = $(entry.content).find('img').attr('src');
+              console.log(image);
+              imageItem = document.createElement("img");
+              imageItem.src = image;
+              div.appendChild(imageItem);
+            }
+            //div.innerHTML = entry.content
+            link = entry.link;
             container.appendChild(div);
           }
         }else{
