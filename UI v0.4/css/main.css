@@ -4,18 +4,20 @@
 }
 
 body, html{
-    margin: 0 auto;
 	color: #000000;
     background-color: #292929;
 }
 
 .feature-widget{
+    margin: 0 auto;
     width: 920px;
-    height: 300px;
+    min-height: 300px;
     display: block;
 }
 
-img .feature-widget{
+.feature-widget img{
+    max-width: 304px;
+    max-height: 160px;
     
 
 }

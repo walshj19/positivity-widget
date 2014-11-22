@@ -25,7 +25,8 @@
       //     }
       //   }
       // });
-
+     
+    
       var feed = new google.feeds.Feed("http://mirthandmotivation.com/feed/");
       feed.load(function(result) {
         if (!result.error) {
@@ -36,6 +37,7 @@
             // div.appendChild(document.createTextNode(entry.title));
             div.innerHTML = entry.content;
             container.appendChild(div);
+            $(".slides").append("<li>" + entry.content + "</li>");
           }
         }else{
           alert("error with mirth feed");
@@ -79,6 +81,7 @@
             div.innerHTML = entry.content;
             link = entry.link;
             container.appendChild(div);
+            $(".slides").append("<li>" + entry.content + "</li>");
           }
         }else{
           alert("error fetching reddit feed");
@@ -90,6 +93,10 @@
     </script>
   </head>
   <body>
-    <div id="feed"></div>
+    <div id="feed">
+      <div class="slides">
+
+      </div>  
+    </div>
   </body>
 </html>

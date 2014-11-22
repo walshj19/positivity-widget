@@ -3,47 +3,120 @@
     <head>
         <link rel="stylesheet" href="flexslider.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="css/main.css" type="text/css">
+        <script type="text/javascript">
+        
+    <!-- List of RSS feeds to pull
+    http://feeds.feedburner.com/ThePositivityblog-PutSomePersonalDevelopmentAndPositivityIntoYourLif
+    -->
+
+    google.load("feeds", "1");
+
+    function initialize() {
+      
+      // EXAMPLE CODE
+      // var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
+      // feed.load(function(result) {
+      //   if (!result.error) {
+      //     var container = document.getElementById("feed");
+      //     for (var i = 0; i < result.feed.entries.length; i++) {
+      //       var entry = result.feed.entries[i];
+      //       var div = document.createElement("div");
+      //       div.appendChild(document.createTextNode(entry.title));
+      //       container.appendChild(div);
+      //     }
+      //   }
+      // });
+     
+    
+      var feed = new google.feeds.Feed("http://mirthandmotivation.com/feed/");
+      feed.load(function(result) {
+        if (!result.error) {
+          var container = document.getElementById("feed");
+          for (var i = 0; i < result.feed.entries.length; i++) {
+            var entry = result.feed.entries[i];
+            var div = document.createElement("div");
+            // div.appendChild(document.createTextNode(entry.title));
+            div.innerHTML = entry.content;
+            container.appendChild(div);
+            $(".slides").append("<li>" + entry.content + "</li>");
+          }
+        }else{
+          alert("error with mirth feed");
+        }
+      });
+
+      
+      var redditFeed = new google.feeds.Feed("http://www.reddit.com/r/GetMotivated.rss");
+      redditFeed.load(function(result) {
+        if (!result.error) {
+          var container = document.getElementById("feed");
+          for (var i = 0; i < result.feed.entries.length; i++) {
+            var entry = result.feed.entries[i];
+            var div = document.createElement("div");
+
+            // div.innerHTML = entry.content;
+
+            if(entry.title.indexOf("[Image]") > -1){
+            imageLink = $(entry.content).find("a:contains('[link]')").attr('href');
+              // image = $(entry.content).find('img').attr('src');
+              console.log(imageLink);
+              imageItem = document.createElement("img");
+              imageItem.src = imageLink;
+              div.appendChild(imageItem);
+            }
+            div.innerHTML = entry.content;
+            link = entry.link;
+            container.appendChild(div);
+            $(".slides").append("<li>" + entry.content + "</li>");
+          }
+        }else{
+          alert("error fetching reddit feed");
+        }
+      });
+    }
+    google.setOnLoadCallback(initialize);
+</script>
     </head>
     <body>
         <div class="feature-widget">
             <div class="flexslider carousel">
                 <ul id="slider" class="slides">
                     <li>
-                        <img src="images/kitchen_adventurer_lemon.jpg">
-                        <h3>This is a title</h3>
-                        <p>Random Text stuff here</p>
+                        <img id="widget-img-1" src="images/kitchen_adventurer_lemon.jpg">
+                        <h3 id="widget-title-1">This is a title that is long</h3>
+                        <p id="widget-text-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
                     </li>
 
                     <li>
-                        <img src="images/kitchen_adventurer_lemon.jpg" />
-                        <h3>This is a title</h2>
+                        <a href=""><img id="widget-img-2"src="images/kitchen_adventurer_lemon.jpg" /></a>
+                        <h3 id="widget-title-2">This is a title that is long</h3>
+                        <p id="widget-text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     </li>
 
                     <li>
-                        <img src="images/kitchen_adventurer_lemon.jpg" />
-                        <h3>This is a title</h1>
-                        <p>This is a sentence.</p>
+                        <img id="widget-img-3"src="images/kitchen_adventurer_lemon.jpg" />
+                        <h3 id="widget-title-3">This is a title that is long</h3>
+                        <p id="widget-text-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     </li>
                     <li>
-                        <img src="images/kitchen_adventurer_lemon.jpg" />
-                        <h3>This is a title</h1>
-                        <p>This is a sentence.</p>
+                        <img id="widget-img-4" src="images/kitchen_adventurer_lemon.jpg" />
+                        <h3 id="widget-title-4">This is a title that is long</h3>
+                        <p id="widget-text-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     </li>
     
                     <li>
-                        <img src="images/kitchen_adventurer_lemon.jpg" />
-                        <h3>This is a title</h1>
-                        <p>This is a sentence.</p>
+                        <img id="widget-img-5"src="images/kitchen_adventurer_lemon.jpg" />
+                        <h3 id="widget-title-5">This is a title that is long</h3>
+                        <p id="widget-text-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     </li>
                     <li>
-                        <img src="images/kitchen_adventurer_lemon.jpg" />
-                        <h3>This is a title</h1>
-                        <p>This is a sentence.</p>
+                        <img id="widget-img-6" src="images/kitchen_adventurer_lemon.jpg" />
+                        <h3 id="widget-title-6">This is a title that is long</h3>
+                        <p id="widget-text-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     </li>
                 </ul>
             </div>
-        </div>
 
         <div id="feed"></div>
 
