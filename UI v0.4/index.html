@@ -3,6 +3,80 @@
     <head>
         <link rel="stylesheet" href="flexslider.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="css/main.css" type="text/css">
+        <script type="text/javascript" src="get.js"></script>
+        <script type="text/javascript">
+        
+    <!-- List of RSS feeds to pull
+    http://feeds.feedburner.com/ThePositivityblog-PutSomePersonalDevelopmentAndPositivityIntoYourLif
+    -->
+
+    google.load("feeds", "1");
+
+    function initialize() {
+      
+      // EXAMPLE CODE
+      // var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
+      // feed.load(function(result) {
+      //   if (!result.error) {
+      //     var container = document.getElementById("feed");
+      //     for (var i = 0; i < result.feed.entries.length; i++) {
+      //       var entry = result.feed.entries[i];
+      //       var div = document.createElement("div");
+      //       div.appendChild(document.createTextNode(entry.title));
+      //       container.appendChild(div);
+      //     }
+      //   }
+      // });
+     
+    
+      var feed = new google.feeds.Feed("http://mirthandmotivation.com/feed/");
+      feed.load(function(result) {
+        if (!result.error) {
+          var container = document.getElementById("feed");
+          for (var i = 0; i < result.feed.entries.length; i++) {
+            var entry = result.feed.entries[i];
+            var div = document.createElement("div");
+            // div.appendChild(document.createTextNode(entry.title));
+            div.innerHTML = entry.content;
+            container.appendChild(div);
+            $(".slides").append("<li>" + entry.content + "</li>");
+          }
+        }else{
+          alert("error with mirth feed");
+        }
+      });
+
+      
+      var redditFeed = new google.feeds.Feed("http://www.reddit.com/r/GetMotivated.rss");
+      redditFeed.load(function(result) {
+        if (!result.error) {
+          var container = document.getElementById("feed");
+          for (var i = 0; i < result.feed.entries.length; i++) {
+            var entry = result.feed.entries[i];
+            var div = document.createElement("div");
+
+            // div.innerHTML = entry.content;
+
+            if(entry.title.indexOf("[Image]") > -1){
+            imageLink = $(entry.content).find("a:contains('[link]')").attr('href');
+              // image = $(entry.content).find('img').attr('src');
+              console.log(imageLink);
+              imageItem = document.createElement("img");
+              imageItem.src = imageLink;
+              div.appendChild(imageItem);
+            }
+            div.innerHTML = entry.content;
+            link = entry.link;
+            container.appendChild(div);
+            $(".slides").append("<li>" + entry.content + "</li>");
+          }
+        }else{
+          alert("error fetching reddit feed");
+        }
+      });
+    }
+    google.setOnLoadCallback(initialize);
+</script>
     </head>
     <body>
             <div class="flexslider carousel feature-widget">
