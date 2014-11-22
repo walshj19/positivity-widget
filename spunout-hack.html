@@ -25,6 +25,23 @@
       //     }
       //   }
       // });
+
+      var feed = new google.feeds.Feed("http://mirthandmotivation.com/feed/");
+      feed.load(function(result) {
+        if (!result.error) {
+          var container = document.getElementById("feed");
+          for (var i = 0; i < result.feed.entries.length; i++) {
+            var entry = result.feed.entries[i];
+            var div = document.createElement("div");
+            // div.appendChild(document.createTextNode(entry.title));
+            div.innerHTML = entry.content;
+            container.appendChild(div);
+          }
+        }else{
+          alert("error with mirth feed");
+        }
+      });
+
       
       var redditFeed = new google.feeds.Feed("http://www.reddit.com/r/GetMotivated.rss");
       redditFeed.load(function(result) {
@@ -33,14 +50,18 @@
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
             var div = document.createElement("div");
+
+            // div.innerHTML = entry.content;
+
             if(entry.title.indexOf("[Image]") > -1){
-              image = $(entry.content).find('img').attr('src');
-              console.log(image);
+            imageLink = $(entry.content).find("a:contains('[link]')").attr('href');
+              // image = $(entry.content).find('img').attr('src');
+              console.log(imageLink);
               imageItem = document.createElement("img");
-              imageItem.src = image;
+              imageItem.src = imageLink;
               div.appendChild(imageItem);
             }
-            //div.innerHTML = entry.content
+            div.innerHTML = entry.content;
             link = entry.link;
             container.appendChild(div);
           }
