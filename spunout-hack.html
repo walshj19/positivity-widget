@@ -18,6 +18,21 @@
           }
         }
       });
+      
+      var redditFeed = new google.feeds.Feed("http://www.reddit.com/r/GetMotivated.rss");
+      redditFeed.load(function(result) {
+        if (!result.error) {
+          var container = document.getElementById("feed");
+          for (var i = 0; i < result.feed.entries.length; i++) {
+            var entry = result.feed.entries[i];
+            var div = document.createElement("div");
+            div.appendChild(document.createTextNode(entry.title));
+            container.appendChild(div);
+          }
+        }else{
+          alert("error fetching reddit feed");
+        }
+      });
     }
     google.setOnLoadCallback(initialize);
 
