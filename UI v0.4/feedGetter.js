@@ -1,9 +1,3 @@
-<html>
-  <head>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript">
-
     <!-- List of RSS feeds to pull
     http://feeds.feedburner.com/ThePositivityblog-PutSomePersonalDevelopmentAndPositivityIntoYourLif
     -->
@@ -19,7 +13,7 @@
       //     var container = document.getElementById("feed");
       //     for (var i = 0; i < result.feed.entries.length; i++) {
       //       var entry = result.feed.entries[i];
-      //       var div = document.createElement("div");
+      //       var div = document.createElement("div");ja
       //       div.appendChild(document.createTextNode(entry.title));
       //       container.appendChild(div);
       //     }
@@ -64,6 +58,7 @@
           var container = document.getElementById("feed");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
+            addToSlider(entry.title);
             var div = document.createElement("div");
 
             // div.innerHTML = entry.content;
@@ -85,11 +80,20 @@
         }
       });
     }
-    google.setOnLoadCallback(initialize);
 
-    </script>
-  </head>
-  <body>
-    <div id="feed"></div>
-  </body>
-</html>
+    function addToSlider(title){
+      //generate the new list item
+      var item = document.createElement("li");
+      image = document.createElement("img");
+      image.src = "images/kitchen_adventurer_lemon.jpg";
+      item.appendChild(image);
+      header = document.createElement("h3");
+      header.innerHTML = title;
+      item.appendChild(header);
+
+      //add it to the list
+      var container = document.getElementById("slider");
+      $("#slider").append(item);
+    }
+
+    google.setOnLoadCallback(initialize);

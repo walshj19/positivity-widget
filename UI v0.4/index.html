@@ -7,7 +7,7 @@
     <body>
         <div class="feature-widget">
             <div class="flexslider carousel">
-                <ul class="slides">
+                <ul id="slider" class="slides">
                     <li>
                         <img src="images/kitchen_adventurer_lemon.jpg">
                         <h3>This is a title</h3>
@@ -45,15 +45,18 @@
             </div>
         </div>
 
+        <div id="feed"></div>
+
   <!-- jQuery -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
 
   <!-- FlexSlider -->
   <script defer src="jquery.flexslider.js"></script>
 
   <script type="text/javascript" src="slider.js"></script>
-
+  <script type="text/javascript" src="feedGetter.js"></script>
 
   <!-- Syntax Highlighter -->
   <script type="text/javascript" src="js/shCore.js"></script>
@@ -63,7 +66,6 @@
   <!-- Optional FlexSlider Additions -->
   <script src="js/jquery.easing.js"></script>
   <script src="js/jquery.mousewheel.js"></script>
-  <script defer src="js/demo.js"></script>
 
 </body>
 </html>
