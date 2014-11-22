@@ -26,11 +26,11 @@
       //   }
       // });
 
-      var destination = "slides";
+    
       var feed = new google.feeds.Feed("http://mirthandmotivation.com/feed/");
       feed.load(function(result) {
         if (!result.error) {
-          var container = document.getElementById(destination);
+          var container = document.getElementById("feed");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
             var div = document.createElement("div");
@@ -47,7 +47,7 @@
       var redditFeed = new google.feeds.Feed("http://www.reddit.com/r/GetMotivated.rss");
       redditFeed.load(function(result) {
         if (!result.error) {
-          var container = document.getElementById(destination);
+          var container = document.getElementById("feed");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
             var div = document.createElement("div");
