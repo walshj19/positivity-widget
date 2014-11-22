@@ -10,7 +10,6 @@ body, html{
 }
 
 .feature-widget{
-    background-color: white;
     width: 920px;
     min-height: 300px;
     display: block;
