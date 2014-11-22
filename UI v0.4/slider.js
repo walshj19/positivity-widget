@@ -16,7 +16,7 @@
         SyntaxHighlighter.all();
       });
 
-      $window.load(function() {
+      function sliderLoad(){
         $('.flexslider').flexslider({
           animation: "slide",
           animationSpeed: 1200,
@@ -32,6 +32,10 @@
             flexslider = slider;
           }
         });
+      }
+
+      $window.load(function() {
+        sliderLoad();
       });
 
       // check grid size on resize event

@@ -2,23 +2,11 @@
     http://feeds.feedburner.com/ThePositivityblog-PutSomePersonalDevelopmentAndPositivityIntoYourLif
     -->
 
+//docs for google feed api https://developers.google.com/feed/v1/devguide#setResultFormat
+
     google.load("feeds", "1");
 
     function initialize() {
-      
-      // EXAMPLE CODE
-      // var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
-      // feed.load(function(result) {
-      //   if (!result.error) {
-      //     var container = document.getElementById("feed");
-      //     for (var i = 0; i < result.feed.entries.length; i++) {
-      //       var entry = result.feed.entries[i];
-      //       var div = document.createElement("div");ja
-      //       div.appendChild(document.createTextNode(entry.title));
-      //       container.appendChild(div);
-      //     }
-      //   }
-      // });
 
       var feed = new google.feeds.Feed("http://mirthandmotivation.com/feed/");
       feed.load(function(result) {
@@ -58,7 +46,7 @@
           var container = document.getElementById("feed");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
-            addToSlider(entry.title);
+            addToSlider(null, entry.title);
             var div = document.createElement("div");
 
             // div.innerHTML = entry.content;
@@ -67,6 +55,7 @@
             imageLink = $(entry.content).find("a:contains('[link]')").attr('href');
               // image = $(entry.content).find('img').attr('src');
               console.log(imageLink);
+              addToSlider(imageLink, entry.title);
               imageItem = document.createElement("img");
               imageItem.src = imageLink;
               div.appendChild(imageItem);
@@ -81,19 +70,26 @@
       });
     }
 
-    function addToSlider(title){
+    function addToSlider(imageUrl, title, text){
       //generate the new list item
       var item = document.createElement("li");
       image = document.createElement("img");
-      image.src = "images/kitchen_adventurer_lemon.jpg";
+      imageUrl = imageUrl == null?"none":imageUrl;
+      if(imageUrl.indexOf(".jpg") > -1 || imageUrl.indexOf(".png") > -1){
+        image.src = imageUrl;
+      }else{
+        image.src = "images/kitchen_adventurer_lemon.jpg";
+      }
       item.appendChild(image);
       header = document.createElement("h3");
       header.innerHTML = title;
       item.appendChild(header);
+      par = document.createElement("p");
+      par.innerHTML = text;
 
       //add it to the list
-      var container = document.getElementById("slider");
-      $("#slider").append(item);
+      var slider = $('.flexslider').data('flexslider');
+      slider.addSlide(item, 1);
     }
 
     google.setOnLoadCallback(initialize);
