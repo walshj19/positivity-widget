@@ -14,10 +14,11 @@
           var container = document.getElementById("feed");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
-            var div = document.createElement("div");
+            addToSlider(null, entry.title, entry.contentSnippet, entry.link);
+            // var div = document.createElement("div");
             // div.appendChild(document.createTextNode(entry.title));
-            div.innerHTML = entry.content;
-            container.appendChild(div);
+            // div.innerHTML = entry.content;
+            // container.appendChild(div);
           }
         }else{
           alert("error with mirth feed");
@@ -27,13 +28,13 @@
       var positivityFeed = new google.feeds.Feed("https://www.reddit.com/r/Positive/.rss");
       positivityFeed.load(function(result) {
         if (!result.error) {
-          var container = document.getElementById("feed");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
-            var div = document.createElement("div");
-            div.appendChild(document.createTextNode(entry.title));
+            // var div = document.createElement("div");
+            // div.appendChild(document.createTextNode(entry.title));
+            addToSlider(null, entry.title, entry.contentSnippet), entry.link;
             // div.innerHTML = entry.content;
-            container.appendChild(div);
+            // container.appendChild(div);
           }
         }else{
           alert("error with positivity feed");
@@ -43,11 +44,9 @@
       var redditFeed = new google.feeds.Feed("http://www.reddit.com/r/GetMotivated.rss");
       redditFeed.load(function(result) {
         if (!result.error) {
-          var container = document.getElementById("feed");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
-            addToSlider(null, entry.title);
-            var div = document.createElement("div");
+            // var div = document.createElement("div");
 
             // div.innerHTML = entry.content;
 
@@ -55,14 +54,16 @@
             imageLink = $(entry.content).find("a:contains('[link]')").attr('href');
               // image = $(entry.content).find('img').attr('src');
               console.log(imageLink);
-              addToSlider(imageLink, entry.title);
-              imageItem = document.createElement("img");
-              imageItem.src = imageLink;
-              div.appendChild(imageItem);
+              addToSlider(imageLink, entry.title, entry.contentSnippet, entry.link);
+              // imageItem = document.createElement("img");
+              // imageItem.src = imageLink;
+              // div.appendChild(imageItem);
+            }else{
+              addToSlider(null, entry.title, entry.contentSnippet, entry.link);
             }
-            div.innerHTML = entry.content;
-            link = entry.link;
-            container.appendChild(div);
+            // div.innerHTML = entry.content;
+            // link = entry.link;
+            // container.appendChild(div);
           }
         }else{
           alert("error fetching reddit feed");
@@ -70,9 +71,11 @@
       });
     }
 
-    function addToSlider(imageUrl, title, text){
+    function addToSlider(imageUrl, title, text, link){
       //generate the new list item
       var item = document.createElement("li");
+      url = document.createElement("a");
+      url.href = link;
       image = document.createElement("img");
       imageUrl = imageUrl == null?"none":imageUrl;
       if(imageUrl.indexOf(".jpg") > -1 || imageUrl.indexOf(".png") > -1){
@@ -80,7 +83,8 @@
       }else{
         image.src = "images/kitchen_adventurer_lemon.jpg";
       }
-      item.appendChild(image);
+      url.appendChild(image);
+      item.appendChild(url);
       header = document.createElement("h3");
       header.innerHTML = title;
       item.appendChild(header);
